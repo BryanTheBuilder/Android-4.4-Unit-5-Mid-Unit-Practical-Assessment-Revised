@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 import nyc.c4q.assesment5secondattempt.controller.RandomPeopleAdapter;
@@ -27,11 +29,15 @@ public class MainActivity extends AppCompatActivity {
   RecyclerView recyclerView;
   RandomPeopleAdapter randomPeopleAdapter;
   List<Results> randomPeopleList = new ArrayList<>();
+  ProgressBar progressBar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    progressBar = findViewById(R.id.activity_main_pb);
+    progressBar.setVisibility(View.VISIBLE);
 
     randomPersonAPISerivce = ServiceGenerator.createService(RandomPersonAPISerivce.class);
     recyclerView = findViewById(R.id.random_people_rv);
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
       public void onResponse(Call<RandomPeople> call, Response<RandomPeople> response) {
         randomPeopleList.addAll(response.body().getResults());
         randomPeopleAdapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.INVISIBLE);
       }
 
       @Override
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     int id = item.getItemId();
     if (id == R.id.action_refresh) {
       randomPeopleList.clear();
+      progressBar.setVisibility(View.VISIBLE);
       randomPeopleAdapter.notifyDataSetChanged();
       fetchRandomPeopleList();
     }
