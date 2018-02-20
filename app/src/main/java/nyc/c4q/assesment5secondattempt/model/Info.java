@@ -1,4 +1,4 @@
-package nyc.c4q.assesment5secondattempt.Models;
+package nyc.c4q.assesment5secondattempt.model;
 
 public class Info {
 

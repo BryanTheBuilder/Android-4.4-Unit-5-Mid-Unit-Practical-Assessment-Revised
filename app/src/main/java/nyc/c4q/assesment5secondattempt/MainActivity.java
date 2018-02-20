@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
-import nyc.c4q.assesment5secondattempt.Controller.RandomPeopleAdapter;
-import nyc.c4q.assesment5secondattempt.Models.RandomPeople;
-import nyc.c4q.assesment5secondattempt.Models.Results;
-import nyc.c4q.assesment5secondattempt.Utils.RandomPersonAPISerivce;
-import nyc.c4q.assesment5secondattempt.Utils.ServiceGenerator;
+import nyc.c4q.assesment5secondattempt.controller.RandomPeopleAdapter;
+import nyc.c4q.assesment5secondattempt.model.RandomPeople;
+import nyc.c4q.assesment5secondattempt.model.Results;
+import nyc.c4q.assesment5secondattempt.utils.RandomPersonAPISerivce;
+import nyc.c4q.assesment5secondattempt.utils.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     call.enqueue(new Callback<RandomPeople>() {
       @Override
       public void onResponse(Call<RandomPeople> call, Response<RandomPeople> response) {
-        List<Results> newResults = response.body().getResults();
-        recyclerView.setAdapter(new RandomPeopleAdapter(newResults));
+        randomPeopleList.addAll(response.body().getResults());
+        randomPeopleAdapter.notifyDataSetChanged();
       }
 
       @Override
@@ -60,6 +63,23 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG, "error message: " + t.getMessage());
       }
     });
+  }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.main_menu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    if (id == R.id.action_refresh) {
+      randomPeopleList.clear();
+      randomPeopleAdapter.notifyDataSetChanged();
+      fetchRandomPeopleList();
+    }
+    return super.onOptionsItemSelected(item);
   }
 }

@@ -1,8 +1,7 @@
-package nyc.c4q.assesment5secondattempt.Controller;
+package nyc.c4q.assesment5secondattempt.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -12,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
 import java.util.List;
 import nyc.c4q.assesment5secondattempt.DetailActivity;
-import nyc.c4q.assesment5secondattempt.Models.Results;
+import nyc.c4q.assesment5secondattempt.model.Results;
 import nyc.c4q.assesment5secondattempt.R;
 
 /**

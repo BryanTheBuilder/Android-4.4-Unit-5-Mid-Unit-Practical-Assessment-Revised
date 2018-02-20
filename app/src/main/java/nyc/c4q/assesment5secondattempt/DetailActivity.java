@@ -32,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         detailIntent.getStringExtra("Street")};
     Picasso.with(getApplicationContext()).load(detailIntent.getStringExtra("Picture"))
         .into(imageView);
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.detail_string_item,
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.detail_string_item,
         R.id.detail_text, items);
     listView.setAdapter(adapter);
   }

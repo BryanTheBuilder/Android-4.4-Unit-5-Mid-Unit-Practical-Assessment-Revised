@@ -1,6 +1,6 @@
-package nyc.c4q.assesment5secondattempt.Utils;
+package nyc.c4q.assesment5secondattempt.utils;
 
-import nyc.c4q.assesment5secondattempt.Models.RandomPeople;
+import nyc.c4q.assesment5secondattempt.model.RandomPeople;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

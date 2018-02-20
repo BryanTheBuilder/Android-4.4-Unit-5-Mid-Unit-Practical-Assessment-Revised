@@ -1,10 +1,9 @@
-package nyc.c4q.assesment5secondattempt.Utils;
+package nyc.c4q.assesment5secondattempt.utils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
-import retrofit2.Retrofit.Builder;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
