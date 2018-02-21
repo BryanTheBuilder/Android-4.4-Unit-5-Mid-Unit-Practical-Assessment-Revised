@@ -1,6 +1,7 @@
 package nyc.c4q.assesment5secondattempt;
 
 import android.content.res.Configuration;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import nyc.c4q.assesment5secondattempt.controller.RandomPeopleAdapter;
 import nyc.c4q.assesment5secondattempt.model.RandomPeople;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
   RandomPersonAPISerivce randomPersonAPISerivce;
   RecyclerView recyclerView;
   RandomPeopleAdapter randomPeopleAdapter;
-  List<Results> randomPeopleList = new ArrayList<>();
+  ArrayList<Results> randomPeopleList = new ArrayList<>();
   ProgressBar progressBar;
 
   @Override
@@ -52,7 +54,17 @@ public class MainActivity extends AppCompatActivity {
     randomPeopleAdapter = new RandomPeopleAdapter(randomPeopleList);
     recyclerView.setAdapter(randomPeopleAdapter);
 
-    fetchRandomPeopleList();
+    if (savedInstanceState != null && savedInstanceState.containsKey("users")) {
+      randomPeopleList.clear();
+      progressBar.setVisibility(View.VISIBLE);
+      randomPeopleAdapter.notifyDataSetChanged();
+      ArrayList<Results> savedList = savedInstanceState.getParcelableArrayList("users");
+      randomPeopleList.addAll(savedList);
+      randomPeopleAdapter.notifyDataSetChanged();
+      progressBar.setVisibility(View.INVISIBLE);
+    } else {
+      fetchRandomPeopleList();
+    }
   }
 
   private void fetchRandomPeopleList() {
@@ -89,5 +101,11 @@ public class MainActivity extends AppCompatActivity {
       fetchRandomPeopleList();
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    outState.putParcelableArrayList("users", randomPeopleList);
+    super.onSaveInstanceState(outState);
   }
 }
